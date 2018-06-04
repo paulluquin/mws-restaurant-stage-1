@@ -154,6 +154,13 @@ class DBHelper {
   }
 
   /**
+   * Restaurant image alt text.
+   */
+  static imageAltForRestaurant(restaurant) {
+    return (`Sample Menu Image from ${restaurant.name}`);
+  }
+
+  /**
    * Map marker for a restaurant.
    */
   static mapMarkerForRestaurant(restaurant, map) {
