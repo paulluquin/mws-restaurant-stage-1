@@ -1,6 +1,6 @@
 console.log('HELLO HERE');
-
-if ('serviceWorker' in navigator) {
+/* Service worker example from Google 
+https://developers.google.com/web/fundamentals/primers/service-workers/*/f ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
     navigator.serviceWorker.register('/js/ServiceWorker.js').then(function(registration) {
       // Registration was successful
