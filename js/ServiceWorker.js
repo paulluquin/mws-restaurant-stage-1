@@ -1,4 +1,3 @@
-
 var cacheVersion = 'pages-cache-v2';
 var urlsToCache = [
   '/',
@@ -41,19 +40,36 @@ self.addEventListener('install', function(event) {
   );
 });
 
+console.log('Activate');
 self.addEventListener('activate', function(event) {
   console.log('Activate Service Worker');
 
+  var versionWhiteList = [cacheVersion]
 
   event.waitUntil(
-    caches.keys().then(function(cacheVersion) {
+    caches.keys().then(function(cacheNames) {
       return Promise.all(
         cacheNames.map(function(cacheName) {
-          if (cacheWhitelist.indexOf(cacheName) === -1) {
+          if (versionWhiteList.indexOf(cacheName) === -1) {
             return caches.delete(cacheName);
           }
         })
       );
+    })
+  );
+});
+
+
+console.log('Fetch');
+self.addEventListener('fetch', function(event) {
+  event.respondWith(
+    cache.match(event.request).then(function (response) {
+      if (response) {
+        console.log (event.request.url);
+        return response;
+      }
+      console.log(event.request.url);
+      return fetch(event.request);
     })
   );
 });
