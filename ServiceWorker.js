@@ -1,3 +1,10 @@
+// completed with the help of multiple examples
+// https://codelabs.developers.google.com/codelabs/offline/#7
+// https://developers.google.com/web/fundamentals/primers/service-workers/
+// https://www.sitepoint.com/getting-started-with-service-workers/
+// https://james-priest.github.io/mws-restaurant-stage-1/
+
+
 const staticCacheName = 'restaurant-static-019';
 
 // list of assets to cache on install
@@ -37,22 +44,6 @@ self.addEventListener('install', event => {
 // either return cached asset or fetch from network
 self.addEventListener('fetch', event => {
   event.respondWith(
-    // new Response('Hello world', {
-    //   headers: {
-    //     'content-type': 'text/html'
-    //   }
-    // })
-    // fetch('/img/1-300a.jpg').catch(error => {
-    //   console.log('it failed. error:', error);
-    // }
-    // fetch(event.request).then(response => {
-    //   if (response.status === 404) {
-    //     return new Response('Whoops, not found');
-    //   }
-    //   return response;
-    // }).catch(error => {
-    //   return new Response('Uh-oh, that totally failed:', error);
-    // })
     caches.match(event.request).then(response => {
       return response || fetch(event.request);
     }).catch(error => {
